@@ -1,1 +1,17 @@
-<p>task1 works!</p>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <label for="first-name">First Name: </label>
+  <input id="first-name" type="text" formControlName="todoText" />
+  <div
+    *ngIf="todoText?.invalid && (todoText?.dirty || todoText?.touched)"
+    class="alert"
+  >
+    <div *ngIf="todoText?.errors?.['required']">Name is required.</div>
+    <div *ngIf="todoText?.errors?.['minlength']">
+      Name must be at least 2 characters long.
+    </div>
+  </div>
+  
+    <button type="submit" [disabled]="!myForm.valid">Submit</button>
+</form>
+
+<div *ngFor="let item of data|async">{{item.text}}<button (click)="deleteTask(item.id)">Delete</button></div>

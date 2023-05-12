@@ -1,0 +1,1 @@
+On the tests choose no to create a Spy/Fake object for the service, since the service is on memory. In a case that the service was http, we should create a spy object.

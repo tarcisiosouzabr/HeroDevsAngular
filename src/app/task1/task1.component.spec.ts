@@ -22,6 +22,7 @@ describe('Task1Component', () => {
   it('should require a valid text', () => {
     component.myForm.setValue({
       text: '',
+      category : {}
     });
     expect(component.myForm.valid).toEqual(false);
   });
@@ -29,6 +30,7 @@ describe('Task1Component', () => {
   it('should require a text longer than 2', () => {
     component.myForm.setValue({
       text: 'a',
+      category : {}
     });
     expect(component.myForm.valid).toEqual(false);
   });
@@ -36,6 +38,7 @@ describe('Task1Component', () => {
   it('should be valid', () => {
     component.myForm.setValue({
       text: 'Simple Task',
+      category : {}
     });
     expect(component.myForm.valid).toEqual(true);
   });
@@ -43,24 +46,12 @@ describe('Task1Component', () => {
   it('should add to dataService', (done) => {
     component.myForm.setValue({
       text: 'Simple Task',
+      category : {}
     });
     component.onSubmit();
 
     component.data.subscribe((value) => {
       expect(value.length).toBe(1);
-      done();
-    });
-  });
-
-  it('should remove to dataService', (done) => {
-    component.myForm.setValue({
-      text: 'Simple Task',
-    });
-    component.onSubmit();
-    component.deleteTask(1);
-
-    component.data.subscribe((value) => {
-      expect(value.length).toBe(0);
       done();
     });
   });

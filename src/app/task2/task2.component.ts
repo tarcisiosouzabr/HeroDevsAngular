@@ -44,7 +44,6 @@ export class Task2Component {
   }
 
   onSubmit() {
-    console.log(this.myForm.value);
     this.dataService.update(this.myForm.getRawValue());
     this.router.navigateByUrl('task1');
   }

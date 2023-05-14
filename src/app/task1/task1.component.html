@@ -2,19 +2,32 @@
   <label for="task-name">Name: </label>
   <input id="task-name" type="text" formControlName="text" />
   <div
-    *ngIf="todoText?.invalid && (todoText?.dirty || todoText?.touched)"
+    *ngIf="text?.invalid && (text?.dirty || text?.touched)"
     class="alert"
   >
-    <div *ngIf="todoText?.errors?.['required']">Name is required.</div>
-    <div *ngIf="todoText?.errors?.['minlength']">
+    <div *ngIf="text?.errors?.['required']">Name is required.</div>
+    <div *ngIf="text?.errors?.['minlength']">
       Name must be at least 2 characters long.
     </div>
   </div>
-  
-    <button type="submit" [disabled]="!myForm.valid">Submit</button>
+  <label for="category">Category: </label>
+  <select id="category" formControlName="category">
+    <option *ngFor="let category of categories | async" [ngValue]="category">
+      {{ category.name }}
+    </option>
+  </select>
+  <button (click)="goToCategory()">Add Category</button>
+  <button type="submit" [disabled]="!myForm.valid">Submit</button>
 </form>
 
+<label for="category">Category: </label>
+<select id="category" [(ngModel)]="categoryId">
+  <option selected value="0" >All</option>
+  <option *ngFor="let category of categories | async" [ngValue]="category.id">
+    {{ category.name }}
+  </option>
+</select>
 <div *ngFor="let item of data|async">
-  {{item.text}}<button (click)="deleteTask(item.id)">Delete</button>
+  {{item.text}}<button (click)="deleteTask(item.id, item)">Delete</button>
   <button (click)="editTask(item.id)">Edit</button>
 </div>

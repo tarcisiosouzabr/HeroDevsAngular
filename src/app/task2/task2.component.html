@@ -14,6 +14,12 @@
     </div>
     <label for="completed">Completed: </label>
     <input id="completed" type="checkbox" formControlName="completed" />
+    <label for="category">Category: </label>
+    <select id="category" formControlName="category">
+      <option *ngFor="let category of categories | async" [ngValue]="category">
+        {{ category.name }}
+      </option>
+    </select>
       <button type="submit" [disabled]="!myForm.valid">Edit</button>
   </form>
   

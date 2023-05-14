@@ -51,7 +51,7 @@ describe('Task1Component', () => {
     component.onSubmit();
 
     component.data.subscribe((value) => {
-      expect(value.length).toBe(1);
+      expect(value?.length).toBe(1);
       done();
     });
   });

@@ -17,9 +17,11 @@ export class Task2Component {
   myForm : FormGroup = new FormGroup({
     id: new FormControl(''),
     text: new FormControl('', [Validators.required, Validators.minLength(2), ]),
-    completed: new FormControl('')
+    completed: new FormControl(''),
+    category: new FormControl('')
   });
   get todoText() { return this.myForm.get('todoText'); }
+  get categories() { return this.dataService.getCategoryData(); }
   
 
   constructor(private dataService : DataService,
@@ -37,7 +39,8 @@ export class Task2Component {
       this.myForm = new FormGroup({
         id: new FormControl(task.id),
         text: new FormControl(task.text,[Validators.required, Validators.minLength(2), ]),
-        completed: new FormControl(task.completed)
+        completed: new FormControl(task.completed),
+        category: new FormControl(task.category)
       });
       this.myForm.controls['id'].disable();
     }

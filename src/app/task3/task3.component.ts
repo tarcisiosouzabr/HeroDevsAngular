@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class Task3Component {
   myForm : FormGroup = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl('')
+    name: new FormControl('', [Validators.required])
   });
 
   constructor(private dataService : DataService, private router : Router)

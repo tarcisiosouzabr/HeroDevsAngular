@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { DataService, Todo } from '../data.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'hd-task1',
@@ -13,17 +14,15 @@ import { DataService, Todo } from '../data.service';
 })
 export class Task1Component implements OnInit {
   
-  get todoText() { return this.myForm.get('todoText'); }
+  get todoText() { return this.myForm.get('text'); }
 
   get data() { return this.dataService.getData(); }
 
   myForm = new FormGroup({
-    todoText: new FormControl('',[Validators.required, Validators.minLength(2), ])
+    text: new FormControl('',[Validators.required, Validators.minLength(2), ])
   });
 
-  currentTaskId : number = 1;
-
-  constructor(private dataService: DataService)
+  constructor(private dataService: DataService, private router: Router)
   {
     
   }
@@ -33,12 +32,16 @@ export class Task1Component implements OnInit {
 
 
   onSubmit() {
-    this.dataService.add({ id: this.currentTaskId, text: this.todoText?.value?.toString(),  completed: false});
-    this.currentTaskId++;
+    this.dataService.add({ text: this.todoText?.value?.toString(),  completed: false});
   }
 
   deleteTask(taskId : number){
     this.dataService.remove(taskId);
+  }
+
+  editTask(taskId: number)
+  {
+    this.router.navigate(["task2", taskId]);
   }
 
 }

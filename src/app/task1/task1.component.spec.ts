@@ -21,28 +21,28 @@ describe('Task1Component', () => {
 
   it('should require a valid text', () => {
     component.myForm.setValue({
-      todoText: '',
+      text: '',
     });
     expect(component.myForm.valid).toEqual(false);
   });
 
   it('should require a text longer than 2', () => {
     component.myForm.setValue({
-      todoText: 'a',
+      text: 'a',
     });
     expect(component.myForm.valid).toEqual(false);
   });
 
   it('should be valid', () => {
     component.myForm.setValue({
-      todoText: 'Simple Task',
+      text: 'Simple Task',
     });
     expect(component.myForm.valid).toEqual(true);
   });
 
   it('should add to dataService', (done) => {
     component.myForm.setValue({
-      todoText: 'Simple Task',
+      text: 'Simple Task',
     });
     component.onSubmit();
 
@@ -54,7 +54,7 @@ describe('Task1Component', () => {
 
   it('should remove to dataService', (done) => {
     component.myForm.setValue({
-      todoText: 'Simple Task',
+      text: 'Simple Task',
     });
     component.onSubmit();
     component.deleteTask(1);

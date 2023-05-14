@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, map } from 'rxjs';
 
 export type Todo = {
   id: number;
@@ -32,6 +32,10 @@ export class DataService {
     return this.#data.asObservable();
   }
 
+  public getDataById(taskId:number): Observable<Todo | undefined> {
+    return this.#data.asObservable().pipe(map(tasks => tasks.find(task => task.id == taskId)));
+  }
+
   public add(todo: Partial<Todo>): Observable<Todo> {
     const newTodo = { ...this.#defaultTodo, ...todo, id: this.#nextId++ };
     this.#data.next([...this.#data.value, newTodo]);
@@ -41,6 +45,11 @@ export class DataService {
   public remove(id: number): Observable<void> {
     this.#data.next(this.#data.value.filter((t) => t.id !== id));
     return of();
+  }
+
+  public update(updatedTask : Todo): Observable<Todo>{
+    this.#data.next(this.#data.value.map((task : Todo) => task.id == updatedTask.id ? updatedTask : task));
+    return of(updatedTask);
   }
 
   private initialize() {

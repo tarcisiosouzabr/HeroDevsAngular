@@ -1,6 +1,6 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <label for="first-name">First Name: </label>
-  <input id="first-name" type="text" formControlName="todoText" />
+  <label for="task-name">Name: </label>
+  <input id="task-name" type="text" formControlName="text" />
   <div
     *ngIf="todoText?.invalid && (todoText?.dirty || todoText?.touched)"
     class="alert"
@@ -14,4 +14,7 @@
     <button type="submit" [disabled]="!myForm.valid">Submit</button>
 </form>
 
-<div *ngFor="let item of data|async">{{item.text}}<button (click)="deleteTask(item.id)">Delete</button></div>
+<div *ngFor="let item of data|async">
+  {{item.text}}<button (click)="deleteTask(item.id)">Delete</button>
+  <button (click)="editTask(item.id)">Edit</button>
+</div>

@@ -7,7 +7,7 @@ import { Task2Component } from './task2/task2.component';
 
 export const routes: Routes = [
     { path: 'task1', component: Task1Component },
-    { path: 'task2', component: Task2Component },
+    { path: 'task2/:taskId', component: Task2Component },
     { path: 'task3', component: Task3Component },
     { path: 'task4', component: Task4Component },
     { path: 'task5', component: Task5Component },

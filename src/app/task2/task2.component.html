@@ -1,1 +1,21 @@
-<p>task2 works!</p>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <label for="taskId">Task Id: </label>
+    <input id="taskId" type="text" formControlName="id"/>
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="text" />
+    <div
+      *ngIf="todoText?.invalid && (todoText?.dirty || todoText?.touched)"
+      class="alert"
+    >
+      <div *ngIf="todoText?.errors?.['required']">Name is required.</div>
+      <div *ngIf="todoText?.errors?.['minlength']">
+        Name must be at least 2 characters long.
+      </div>
+    </div>
+    <label for="completed">Completed: </label>
+    <input id="completed" type="checkbox" formControlName="completed" />
+      <button type="submit" [disabled]="!myForm.valid">Edit</button>
+  </form>
+
+  {{myForm.getRawValue() | json}}
+  

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DataService, Todo } from '../data.service';
+import { DataService, Todo } from '../services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'hd-task2',
@@ -21,12 +22,13 @@ export class Task2Component {
     category: new FormControl('')
   });
   get todoText() { return this.myForm.get('todoText'); }
-  get categories() { return this.dataService.getCategoryData(); }
+  get categories() { return this.categoryService.getData(); }
   
 
   constructor(private dataService : DataService,
               private route : ActivatedRoute,
-              private router : Router){
+              private router : Router,
+              private categoryService : CategoryService){
                 this.route.params.pipe(map(p => p['taskId'])).subscribe(value => this.getTask(value));
   }
   getTask(taskId : number)

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { Category, DataService, Todo } from '../data.service';
+import { Category, DataService, Todo } from '../services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'hd-task1',
@@ -27,7 +28,7 @@ export class Task1Component implements OnInit {
       return this.dataService.getData();
     }
    }
-  get categories() { return this.dataService.getCategoryData(); }
+  get categories() { return this.categoryService.getData(); }
 
   categoryId : number = 0;
 
@@ -36,7 +37,9 @@ export class Task1Component implements OnInit {
     category: new FormControl({})
   });
 
-  constructor(private dataService: DataService, private router: Router)
+  constructor(private dataService: DataService,
+               private router: Router, 
+               private categoryService : CategoryService)
   {
     
   }

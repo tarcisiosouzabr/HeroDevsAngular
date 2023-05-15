@@ -1,4 +1,2 @@
-[X] - Write tests for task 3 Components
-[X] - Refactor Data Service, separating Todos and Categories
-[ ] - Write test for the refactor services
-[ ] - Add UI framework maybe
+Chose to make Category into an object instead of using a text.
+In my opinion, this will make the code cleaner and easy to test and also will represent more truly a production application

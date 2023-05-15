@@ -24,7 +24,8 @@ describe('Task2Component', () => {
     component.myForm.setValue({
       id: 1,
       text: '',
-      completed:false
+      completed:false,
+      category:{}
     });
     expect(component.myForm.valid).toEqual(false);
   });
@@ -33,7 +34,8 @@ describe('Task2Component', () => {
     component.myForm.setValue({
       id: 1,
       text: 'a',
-      completed:false
+      completed:false,
+      category:{}
     });
     expect(component.myForm.valid).toEqual(false);
   });
@@ -42,7 +44,8 @@ describe('Task2Component', () => {
     component.myForm.setValue({
       id: 1,
       text: 'Task One',
-      completed:false
+      completed:false,
+      category:{}
     });
     expect(component.myForm.valid).toEqual(true);
   });

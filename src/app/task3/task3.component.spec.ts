@@ -18,4 +18,20 @@ describe('Task3Component', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should require a valid text', () => {
+    component.myForm.setValue({
+      id: 1,
+      name: ''
+    });
+    expect(component.myForm.valid).toEqual(false);
+  });
+
+  it('should be valid', () => {
+    component.myForm.setValue({
+      id: 1,
+      name: 'Category Name'
+    });
+    expect(component.myForm.valid).toEqual(true);
+  });
 });

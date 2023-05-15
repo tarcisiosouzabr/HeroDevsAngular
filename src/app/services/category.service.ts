@@ -47,11 +47,13 @@ export type Category = {
     }
 
     public remove(id: number): Observable<void> {
-        this.#data.next(this.#data.value.filter((t) => t.id !== id));
+        if(this.#data && this.#data.value){
+            this.#data.next(this.#data.value.filter((t) => t.id !== id));
+        }
         return of();
     }
 
-    public updateCategory(updatedCategory : Category): Observable<Category>{
+    public update(updatedCategory : Category): Observable<Category>{
         this.#data.next(this.#data.value.map((task : Category) => task.id == updatedCategory.id ? updatedCategory : task));
         return of(updatedCategory);
     }

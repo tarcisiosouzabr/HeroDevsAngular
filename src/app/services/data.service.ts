@@ -46,7 +46,10 @@ export class DataService {
   }
 
   public getDataByCategoryId(categoryId:number | undefined): Observable<Todo[] | undefined> {
-    return this.#data.pipe(map(tasks => tasks.filter(task => task.category?.id == categoryId)));
+    if(categoryId){
+      return this.#data.pipe(map(tasks => tasks.filter(task => task.category?.id == categoryId)));
+    }
+    return of();
   }
 
   public add(todo: Partial<Todo>): Observable<Todo> {
@@ -55,19 +58,18 @@ export class DataService {
     return of(newTodo);
   }
 
-  public remove(id: number): Observable<void> {
+  public remove(id: number) {
     this.getDataById(id).subscribe((task) => {
-      this.getDataByCategoryId(task?.category?.id).subscribe((tasks) => {
-        if(tasks && tasks.length == 0)
-        {
-          this.categoryService.remove(task?.category?.id as number);
-        }
-      });
-
-      this.#data.next(this.#data.value.filter((t) => t.id !== id));
+      if(task && task.category){
+        this.getDataByCategoryId(task?.category?.id).subscribe((tasks) => {
+          if(tasks && tasks.length == 0)
+          {
+            this.categoryService.remove(task?.category?.id as number);
+          }
+        });
+      }
     });
-
-    return of();
+    this.#data.next(this.#data.value.filter((t) => t.id !== id));
   }
 
   public update(updatedTask : Todo): Observable<Todo>{

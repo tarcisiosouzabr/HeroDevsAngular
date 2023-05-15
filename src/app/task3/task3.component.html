@@ -1,5 +1,8 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <label for="name">Name: </label>
-    <input id="name" type="text" formControlName="name" />
-      <button type="submit" [disabled]="!myForm.valid">Save</button>
+<form class="container mb-3" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <p class="fs-1">Add new Category</p>
+    <label class="form-label" for="name">Name: </label>
+    <input class="form-control" id="name" type="text" formControlName="name" />
+      <div class="pt-2">
+        <button class="btn btn-primary " type="submit" [disabled]="!myForm.valid">Save</button>
+      </div>
 </form>

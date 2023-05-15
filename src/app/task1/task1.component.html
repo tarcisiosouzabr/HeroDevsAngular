@@ -1,33 +1,57 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <label for="task-name">Name: </label>
-  <input id="task-name" type="text" formControlName="text" />
+<form class="container mb-3" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <label class="form-label" for="task-name">Name: </label>
+  <input class="form-control" id="task-name" type="text" formControlName="text" />
   <div
     *ngIf="text?.invalid && (text?.dirty || text?.touched)"
     class="alert"
   >
-    <div *ngIf="text?.errors?.['required']">Name is required.</div>
-    <div *ngIf="text?.errors?.['minlength']">
+    <div class="text-danger" *ngIf="text?.errors?.['required']">Name is required.</div>
+    <div class="text-danger" *ngIf="text?.errors?.['minlength']">
       Name must be at least 2 characters long.
     </div>
   </div>
-  <label for="category">Category: </label>
-  <select id="category" formControlName="category">
+  <label class="form-label" for="category">Category: </label>
+  <select class="form-control" id="category" formControlName="category">
     <option *ngFor="let category of categories | async" [ngValue]="category">
       {{ category.name }}
     </option>
   </select>
-  <button (click)="goToCategory()">Add Category</button>
-  <button type="submit" [disabled]="!myForm.valid">Submit</button>
+  <button type="button" class="btn btn-outline-primary mt-2" (click)="goToCategory()">Add New Category</button>
+
+  <div class="pt-2">
+    <button class="btn btn-primary " type="submit" [disabled]="!myForm.valid">Submit</button>
+  </div>
 </form>
 
-<label for="category">Category: </label>
-<select id="category" [(ngModel)]="categoryId">
-  <option selected value="0" >All</option>
-  <option *ngFor="let category of categories | async" [ngValue]="category.id">
-    {{ category.name }}
-  </option>
-</select>
-<div *ngFor="let item of data|async">
-  {{item.text}}<button (click)="deleteTask(item.id, item)">Delete</button>
-  <button (click)="editTask(item.id)">Edit</button>
+<div class="container mb-3">
+  <p class="fs-1">Filters</p>
+  <label for="category" class="form-label">Category: </label>
+  <select id="category" class="form-control" [(ngModel)]="categoryId">
+    <option selected value="0" >All</option>
+    <option *ngFor="let category of categories | async" [ngValue]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Category</th>
+        <th scope="col" class="d-md-flex justify-content-md-end">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data|async">
+        <th scope="row">{{item.text}}</th>
+        <th scope="row">{{item.category?.name ?? "No Category"}}</th>
+        <td>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-danger" type="button" (click)="deleteTask(item.id, item)">Delete</button>
+            <button class="btn btn-warning" type="button" (click)="editTask(item.id)">Edit</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

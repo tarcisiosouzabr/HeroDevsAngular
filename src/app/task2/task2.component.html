@@ -1,8 +1,8 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <label for="taskId">Task Id: </label>
-    <input id="taskId" type="text" formControlName="id"/>
-    <label for="name">Name: </label>
-    <input id="name" type="text" formControlName="text" />
+<form class="container mb-3" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <label class="form-label" for="taskId">Task Id: </label>
+    <input class="form-control" id="taskId" type="text" formControlName="id"/>
+    <label class="form-label" for="name">Name: </label>
+    <input class="form-control" id="name" type="text" formControlName="text" />
     <div
       *ngIf="todoText?.invalid && (todoText?.dirty || todoText?.touched)"
       class="alert"
@@ -12,14 +12,21 @@
         Name must be at least 2 characters long.
       </div>
     </div>
-    <label for="completed">Completed: </label>
-    <input id="completed" type="checkbox" formControlName="completed" />
-    <label for="category">Category: </label>
-    <select id="category" formControlName="category">
+    <div class="form-check">
+      <input class="form-check-input" id="completed" type="checkbox" formControlName="completed" />
+      <label class="form-check-label" for="completed">
+        Completed
+      </label>
+    </div>
+    
+    <label class="form-label" for="category">Category: </label>
+    <select class="form-control" id="category" formControlName="category">
       <option *ngFor="let category of categories | async" [ngValue]="category">
         {{ category.name }}
       </option>
     </select>
-      <button type="submit" [disabled]="!myForm.valid">Edit</button>
+    <div class="pt-2">
+      <button class="btn btn-primary " type="submit" [disabled]="!myForm.valid">Edit</button>
+    </div>
   </form>
   
